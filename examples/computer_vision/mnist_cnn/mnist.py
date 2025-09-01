@@ -51,8 +51,20 @@ history = model.fit(X_train, y_train, epochs=10, batch_size=64, validation_split
 test_loss, test_acc = model.evaluate(X_test, y_test)
 print(f'Test accuracy: {test_acc:.4f}')
 
+# 正常情况下使用predictions = model.predict(X_test)，而不是model.save('my_model.h5');new_model = tf.keras.models.load_model('my_model.h5');predictions = new_model.predict(X_test)
+
+# 保存整个模型文件
+model.save('my_model.h5')
+
+# 加载模型
+new_model = tf.keras.models.load_model('my_model.h5')
+
 # 可视化预测
-predictions = model.predict(X_test)
+predictions = new_model.predict(X_test)
+
+# 可视化预测
+# predictions = model.predict(X_test)
+
 predicted_labels = tf.argmax(predictions, axis=1)
 
 plt.figure(figsize=(10, 4))
